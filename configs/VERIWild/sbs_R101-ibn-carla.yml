@@ -1,0 +1,26 @@
+_BASE_: "../Base-Strongerbaseline.yml"
+
+MODEL:
+  BACKBONE:
+    DEPTH: "101x"
+    WITH_IBN: True
+    PRETRAIN: True
+    PRETRAIN_PATH: "/home/zju/.cache/torch/checkpoints/resnet101-5d3b4d8f.pth"
+
+DATASETS:
+  NAMES: ("VeRiWild", "CarlaVehicle",)
+  TESTS: ("CarlaVehicle",)
+
+SOLVER:
+  IMS_PER_BATCH: 48
+  MAX_ITER: 1000
+  STEPS: [30, 50]
+  WARMUP_ITERS: 10
+
+  CHECKPOINT_PERIOD: 10
+
+TEST:
+  EVAL_PERIOD: 800
+  IMS_PER_BATCH: 128
+
+OUTPUT_DIR: "logs/veriwild/sbs_R101-ibn_4gpu-carla2"
