@@ -105,7 +105,7 @@ class ReidEvaluator(DatasetEvaluator):
             gallery_camids = np.asarray(camids[self._num_query:])
             print(gallery_frames.shape, gallery_camids.shape, gallery_idxs.shape)
             # added by myself
-            file_name = '/home/zju/yangyueren/dataset/carla_cameras/features/'
+            file_name = '/home/zju/yangyueren/dataset/carla_cameras_big_epic_video_1000/features/'
             print('save file '+file_name+'gf_2048.npy')
             np.save(file_name+'carla_gf_2048.npy', gallery_features.numpy())
             np.save(file_name+'carla_frame_2048.npy', gallery_frames)
@@ -126,7 +126,7 @@ class ReidEvaluator(DatasetEvaluator):
             gallery_pids = np.asarray(pids[self._num_query:])
             gallery_camids = np.asarray(camids[self._num_query:])
 
-            file_name = '/home/zju/yangyueren/dataset/carla_vehicles/features_low/'
+            file_name = '/home/zju/yangyueren/dataset/carla_vehicles_random_1000/features/'
             # print('save file '+file_name+'gf_2048.npy')
             # np.save(file_name+'gf_2048.npy', gallery_features.numpy())
             # np.save(file_name+'pid_2048.npy', gallery_pids)

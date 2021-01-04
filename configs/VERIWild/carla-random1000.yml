@@ -15,20 +15,20 @@ MODEL:
       MARGIN: 0.0
 
 DATASETS:
-  NAMES: ("VeRiWild", "VeRi",)
-  # TESTS: ("LargeVeRiWild", "CarlaVehicle",)
-  TESTS: ("VeRi",)
+  # NAMES: ("VeRiWild", "CarlaVehicle",)
+  NAMES: ("CarlaVehicle",)
+  TESTS: ("CarlaVehicle",)
 
 SOLVER:
   IMS_PER_BATCH: 128
-  MAX_ITER: 80
+  MAX_ITER: 60
   STEPS: [30, 50]
   WARMUP_ITERS: 10
 
-  CHECKPOINT_PERIOD: 10
+  CHECKPOINT_PERIOD: 20
 
 TEST:
-  EVAL_PERIOD: 10
+  EVAL_PERIOD: 20
   IMS_PER_BATCH: 128
 
-OUTPUT_DIR: "logs/veriwild/bagtricks_R50-ibn_4gpu"
+OUTPUT_DIR: "logs/veriwild/carla-random1000"

@@ -9,8 +9,8 @@ MODEL:
     FEAT_DIM: 2048
     WITH_IBN: False
     PRETRAIN: True
-    # PRETRAIN_PATH: "/home/zju/.cache/torch/checkpoints/resnet50-19c8e357.pth"
-    PRETRAIN_PATH: "/home/zju/.cache/torch/checkpoints/resnet50_ibn_a-d9d0bb7b.pth"
+    PRETRAIN_PATH: "/home/zju/.cache/torch/checkpoints/resnet50-19c8e357.pth"
+    # PRETRAIN_PATH: "/home/zju/.cache/torch/checkpoints/resnet50_ibn_a-d9d0bb7b.pth"
 
   HEADS:
     NAME: "EmbeddingHead"

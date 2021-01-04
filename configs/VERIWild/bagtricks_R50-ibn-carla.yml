@@ -15,8 +15,9 @@ MODEL:
       MARGIN: 0.0
 
 DATASETS:
-  NAMES: ("VeRiWild", "CarlaVehicle",)
-  TESTS: ("CarlaVehicle",)
+  # NAMES: ("VeRiWild", "CarlaVehicle",)
+  NAMES: ("CarlaVehicle",)
+  TESTS: ("VeRi",)
 
 SOLVER:
   IMS_PER_BATCH: 128

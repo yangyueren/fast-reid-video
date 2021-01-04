@@ -10,16 +10,12 @@ from ..datasets import DATASET_REGISTRY
 
 @DATASET_REGISTRY.register()
 class CarlaVehicle(ImageDataset):
-    """VeRi.
-    Reference:
-        Liu et al. A Deep Learning based Approach for Progressive Vehicle Re-Identification. ECCV 2016.
-    URL: `<https://vehiclereid.github.io/VeRi/>`_
-    Dataset statistics:
-        - identities: 775.
-        - images: 37778 (train) + 1678 (query) + 11579 (gallery).
     """
-    dataset_dir = "carla_vehicles"
-    dataset_name = "carla_vehicles"
+    """
+    dataset_dir = "carla_vehicles_random_1000"
+    dataset_name = "carla_vehicles_random_1000"
+    # dataset_dir = "carla_vehicles_108"
+    # dataset_name = "carla_vehicles_108"
 
     EXTRACT = False
 
@@ -28,20 +24,25 @@ class CarlaVehicle(ImageDataset):
         self.dataset_dir = osp.join(root, self.dataset_dir)
         if self.EXTRACT == True:
             # change dir
-            self.dataset_dir = "carla_cameras"
-            self.dataset_name = "carla_cameras"
+            self.dataset_dir = "carla_cameras_big_epic_video_1000"
+            self.dataset_name = "carla_cameras_big_epic_video_1000"
             self.dataset_dir = osp.join(root, self.dataset_dir)
-            self.train_dir = osp.join(self.dataset_dir, 'train')
-            self.query_dir = osp.join(self.dataset_dir, 'query')
+            self.train_dir = osp.join(self.dataset_dir, 'train_nouse')
+            self.query_dir = osp.join(self.dataset_dir, 'query_nouse')
             self.gallery_dir = osp.join(self.dataset_dir, 'traffic-camera-output-combine')
         else:
-            self.train_dir = osp.join(self.dataset_dir, 'train2')
+            self.train_dir = osp.join(self.dataset_dir, 'train_test')
+            self.query_dir = osp.join(self.dataset_dir, 'query2_random1000')
+            self.gallery_dir = osp.join(self.dataset_dir, 'test2_random1000')
+
+            # self.train_dir = osp.join(self.dataset_dir, 'train2')
             # self.query_dir = osp.join(self.dataset_dir, 'query2')
-            self.query_dir = osp.join(self.dataset_dir, 'query2_low')
+            # self.gallery_dir = osp.join(self.dataset_dir, 'test2')
+
             # self.query_dir = osp.join(self.dataset_dir, 'query2_epic')
             # self.query_dir = osp.join(self.dataset_dir, 'query2_epic1k')
-            # self.gallery_dir = osp.join(self.dataset_dir, 'test2')
-            self.gallery_dir = osp.join(self.dataset_dir, 'test2_low')
+            
+            
             # self.gallery_dir = osp.join(self.dataset_dir, 'test2_epic')
             # self.gallery_dir = osp.join(self.dataset_dir, 'test2_epic1k')
 
@@ -67,8 +68,8 @@ class CarlaVehicle(ImageDataset):
     def process_carla_camera_dir(self, dir_path, is_train=True):
         img_paths = glob.glob(osp.join(dir_path, '*.jpg'))
         
-        #test格式 c000-007758-003.jpg
-        #query格式 c000_027_00043.jpg camid, vehicleid, junkinfo
+        #test格式 c0113_0000182_0000020.jpg
+        #query格式 c0113_0000182_0000020.jpg camid, frame, idxinframe
         pattern = re.compile(r'c([\d]+)[-_]([\d]+)[-_]([\d]+)')
 
         data = []
@@ -91,14 +92,15 @@ class CarlaVehicle(ImageDataset):
         return data
 
     def process_dir(self, dir_path, is_train=True):
+        #c0000_0980_0000006.jpg camid vehicleid junkinfo
         img_paths = glob.glob(osp.join(dir_path, '*.jpg'))
-        pattern = re.compile(r'c(\d\d\d)_(\d\d\d)')
+        pattern = re.compile(r'c(\d\d\d\d)_(\d\d\d\d)')
 
         data = []
         for img_path in img_paths:
             camid, pid = map(int, pattern.search(img_path).groups())
             if pid == -1: continue  # junk images are just ignored
-            assert 0 <= pid <= 108
+            assert 0 <= pid <= 1000
             assert 0 <= camid <= 2
             if is_train:
                 pid = self.dataset_name + "_" + str(pid)

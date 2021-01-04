@@ -1,0 +1,3 @@
+bagtricks_R50-ibn_4gpu 这个版本可以提取veri和veriwild的feature，效果不错，对应run_veriwild.sh命令行
+run_carla.sh暂时废除使用
+run_carla_random1000.sh是用于训练carla的车辆，针对提取carla视频的车辆feature，在测试集上效果不错，但是不清楚在实际视频中的效果。
